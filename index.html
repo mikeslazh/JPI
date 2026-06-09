@@ -3,287 +3,1766 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jakarta Portal International — General Trading | Energy &amp; Commodity Resources</title>
-  <meta name="description" content="Jakarta Portal International (JPI) is Indonesia's trusted general trading company specializing in Energy Resources and Commodity Resources across 15 provinces." />
-  <link rel="stylesheet" href="css/style.css" />
+  <title>Jakarta Portal International | Connecting Indonesia to the World</title>
+  <meta name="description" content="Jakarta Portal International (JPI) — Your trusted partner for raw materials and commodities trade across APAC. Export/Import specialists bridging Indonesia to China, Japan, South Korea, and beyond." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* ── Reset & Tokens ────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #1B3A5C;
+      --navy-dark:  #122840;
+      --navy-light: #254f7a;
+      --gold:       #D4A017;
+      --gold-light: #e8b72a;
+      --white:      #FFFFFF;
+      --gray-bg:    #F5F7FA;
+      --gray-mid:   #E2E8F0;
+      --gray-text:  #64748B;
+      --dark:       #0F1F30;
+      --font:       'Inter', sans-serif;
+      --shadow-sm:  0 1px 3px rgba(0,0,0,.08);
+      --shadow-md:  0 4px 16px rgba(0,0,0,.10);
+      --shadow-lg:  0 12px 40px rgba(0,0,0,.14);
+      --radius:     8px;
+      --radius-lg:  16px;
+      --transition: .3s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      color: var(--dark);
+      background: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── Utility ───────────────────────────────────────────── */
+    .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .section    { padding: 96px 0; }
+    .section--gray { background: var(--gray-bg); }
+
+    .section-label {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 1.0625rem;
+      color: var(--gray-text);
+      max-width: 580px;
+    }
+    .section-header { margin-bottom: 56px; }
+    .section-header--center { text-align: center; }
+    .section-header--center .section-sub { margin: 0 auto; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 28px;
+      border-radius: var(--radius);
+      font-size: .9375rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 2px solid transparent;
+      text-decoration: none;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy-dark);
+      border-color: var(--gold);
+    }
+    .btn-primary:hover {
+      background: var(--gold-light);
+      border-color: var(--gold-light);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border-color: rgba(255,255,255,.6);
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,.12);
+      border-color: var(--white);
+    }
+    .btn-navy {
+      background: var(--navy);
+      color: var(--white);
+      border-color: var(--navy);
+    }
+    .btn-navy:hover {
+      background: var(--navy-light);
+      border-color: var(--navy-light);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* ── Scroll animations ─────────────────────────────────── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: none; }
+    .fade-in-delay-1 { transition-delay: .1s; }
+    .fade-in-delay-2 { transition-delay: .2s; }
+    .fade-in-delay-3 { transition-delay: .3s; }
+    .fade-in-delay-4 { transition-delay: .4s; }
+    .fade-in-delay-5 { transition-delay: .5s; }
+    .fade-in-delay-6 { transition-delay: .6s; }
+
+    /* ── Navbar ────────────────────────────────────────────── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: transparent;
+      transition: background var(--transition), box-shadow var(--transition), padding var(--transition);
+      padding: 22px 0;
+    }
+    #navbar.scrolled {
+      background: var(--navy-dark);
+      box-shadow: var(--shadow-md);
+      padding: 14px 0;
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo-mark {
+      width: 40px; height: 40px;
+      background: var(--gold);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: .875rem;
+      color: var(--navy-dark);
+      letter-spacing: -.02em;
+      flex-shrink: 0;
+    }
+    .nav-logo-text { color: var(--white); }
+    .nav-logo-name { display: block; font-weight: 700; font-size: 1rem; line-height: 1.1; }
+    .nav-logo-sub  { display: block; font-size: .65rem; font-weight: 400; opacity: .75; letter-spacing: .06em; text-transform: uppercase; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,.85);
+      text-decoration: none;
+      font-size: .875rem;
+      font-weight: 500;
+      padding: 7px 12px;
+      border-radius: 6px;
+      transition: var(--transition);
+    }
+    .nav-links a:hover { color: var(--white); background: rgba(255,255,255,.1); }
+    .nav-links .nav-cta a {
+      background: var(--gold);
+      color: var(--navy-dark);
+      font-weight: 600;
+      padding: 8px 18px;
+    }
+    .nav-links .nav-cta a:hover { background: var(--gold-light); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 6px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--navy-dark);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 1.3rem;
+      font-weight: 600;
+      padding: 12px 32px;
+      border-radius: 8px;
+      transition: var(--transition);
+      width: 260px;
+      text-align: center;
+    }
+    .mobile-menu a:hover { background: rgba(255,255,255,.1); }
+    .mobile-menu .mobile-cta {
+      background: var(--gold);
+      color: var(--navy-dark) !important;
+      margin-top: 16px;
+    }
+    .mobile-menu .mobile-cta:hover { background: var(--gold-light) !important; }
+
+    /* ── Hero ──────────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: var(--navy-dark);
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://placehold.co/1920x1080/1B3A5C/254f7a?text=Jakarta+Port+%7C+Shipping+%26+Trade');
+      background-size: cover;
+      background-position: center;
+      opacity: .35;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(18,40,64,.92) 0%, rgba(27,58,92,.75) 60%, rgba(27,58,92,.4) 100%);
+    }
+    .hero-wrapper {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .hero-content {
+      padding: 160px 0 80px;
+      max-width: 760px;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(212,160,23,.15);
+      border: 1px solid rgba(212,160,23,.35);
+      color: var(--gold);
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+    .hero-title {
+      font-size: clamp(2.5rem, 5.5vw, 4rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -.02em;
+    }
+    .hero-title span { color: var(--gold); }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: rgba(255,255,255,.8);
+      margin-bottom: 40px;
+      line-height: 1.65;
+      max-width: 580px;
+    }
+    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,.1);
+      border-top: 1px solid rgba(255,255,255,.12);
+      margin-top: auto;
+    }
+    .hero-stat {
+      background: rgba(18,40,64,.7);
+      padding: 28px 24px;
+      text-align: center;
+      backdrop-filter: blur(8px);
+    }
+    .hero-stat-num {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .hero-stat-label {
+      font-size: .8rem;
+      color: rgba(255,255,255,.65);
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      font-weight: 500;
+    }
+
+    /* ── About ─────────────────────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .about-img {
+      border-radius: var(--radius-lg);
+      overflow: visible;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+    .about-img img {
+      width: 100%;
+      display: block;
+      border-radius: var(--radius-lg);
+    }
+    .about-img-badge {
+      position: absolute;
+      bottom: -20px; right: -20px;
+      background: var(--gold);
+      color: var(--navy-dark);
+      padding: 20px 24px;
+      border-radius: var(--radius-lg);
+      text-align: center;
+      box-shadow: var(--shadow-md);
+    }
+    .about-img-badge strong { display: block; font-size: 2rem; font-weight: 800; line-height: 1; }
+    .about-img-badge span   { font-size: .75rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+
+    .about-values {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 36px;
+    }
+    .about-value {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--gray-bg);
+      border-radius: var(--radius);
+      padding: 16px;
+      border-left: 3px solid var(--gold);
+    }
+    .about-value-icon {
+      width: 36px; height: 36px;
+      background: var(--navy);
+      color: var(--gold);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .85rem;
+      flex-shrink: 0;
+    }
+    .about-value h4 { font-size: .875rem; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+    .about-value p  { font-size: .8rem; color: var(--gray-text); line-height: 1.4; }
+
+    /* ── Commodities ───────────────────────────────────────── */
+    .commodities-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .commodity-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--gray-mid);
+      transition: var(--transition);
+      cursor: default;
+    }
+    .commodity-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+      border-color: var(--gold);
+    }
+    .commodity-icon {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, var(--navy), var(--navy-light));
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .commodity-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .commodity-card p  { font-size: .875rem; color: var(--gray-text); line-height: 1.55; }
+    .commodity-tag {
+      display: inline-block;
+      margin-top: 14px;
+      background: var(--gray-bg);
+      color: var(--navy);
+      font-size: .7rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    /* ── Services ──────────────────────────────────────────── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .service-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      border: 1px solid var(--gray-mid);
+      transition: var(--transition);
+    }
+    .service-card:hover { box-shadow: var(--shadow-md); border-color: rgba(27,58,92,.25); }
+    .service-num {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .service-card h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+    .service-card p  { font-size: .875rem; color: var(--gray-text); line-height: 1.55; }
+    .service-card ul { list-style: none; margin-top: 12px; }
+    .service-card ul li {
+      font-size: .825rem;
+      color: var(--gray-text);
+      padding: 4px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .service-card ul li::before {
+      content: '';
+      width: 5px; height: 5px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── Markets ───────────────────────────────────────────── */
+    #markets { background: var(--navy-dark); }
+    #markets .section-title { color: var(--white); }
+    #markets .section-sub   { color: rgba(255,255,255,.65); }
+    #markets .section-label { color: var(--gold); }
+
+    .markets-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .market-card {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius-lg);
+      padding: 24px 20px;
+      text-align: center;
+      transition: var(--transition);
+      cursor: default;
+    }
+    .market-card:hover {
+      background: rgba(255,255,255,.1);
+      border-color: var(--gold);
+      transform: translateY(-3px);
+    }
+    .market-flag { font-size: 2.4rem; margin-bottom: 10px; display: block; }
+    .market-name { font-size: .9rem; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+    .market-fta {
+      font-size: .7rem;
+      color: var(--gold);
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      background: rgba(212,160,23,.12);
+      border: 1px solid rgba(212,160,23,.25);
+      padding: 3px 8px;
+      border-radius: 100px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+    .market-desc { font-size: .78rem; color: rgba(255,255,255,.55); line-height: 1.45; }
+
+    .markets-note {
+      margin-top: 48px;
+      text-align: center;
+      background: rgba(212,160,23,.1);
+      border: 1px solid rgba(212,160,23,.25);
+      border-radius: var(--radius-lg);
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    .markets-note i { color: var(--gold); font-size: 1.1rem; flex-shrink: 0; }
+    .markets-note p { color: rgba(255,255,255,.8); font-size: .9rem; text-align: left; }
+    .markets-note strong { color: var(--gold); }
+
+    /* ── Why JPI ───────────────────────────────────────────── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+    .why-list { list-style: none; display: flex; flex-direction: column; gap: 20px; }
+    .why-item { display: flex; align-items: flex-start; gap: 16px; }
+    .why-icon {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, var(--navy), var(--navy-light));
+      color: var(--gold);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .9rem;
+      flex-shrink: 0;
+      box-shadow: var(--shadow-sm);
+    }
+    .why-item h4 { font-size: .9375rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .why-item p  { font-size: .85rem; color: var(--gray-text); line-height: 1.5; }
+
+    .why-visual {
+      background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      color: var(--white);
+    }
+    .why-visual h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 28px; color: var(--gold); }
+    .compliance-grid { display: flex; flex-direction: column; gap: 14px; }
+    .compliance-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: rgba(255,255,255,.07);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      border-left: 3px solid var(--gold);
+    }
+    .compliance-item i { color: var(--gold); font-size: .9rem; width: 18px; text-align: center; margin-top: 2px; flex-shrink: 0; }
+    .compliance-item p { font-size: .875rem; color: rgba(255,255,255,.85); line-height: 1.45; }
+    .compliance-item strong { color: var(--white); }
+
+    /* ── Contact ───────────────────────────────────────────── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 56px;
+      align-items: start;
+    }
+    .contact-info h3 { font-size: 1.2rem; font-weight: 700; color: var(--navy); margin-bottom: 24px; }
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .contact-detail-icon {
+      width: 40px; height: 40px;
+      background: var(--navy);
+      color: var(--gold);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .85rem;
+      flex-shrink: 0;
+    }
+    .contact-detail h4 {
+      font-size: .8rem; font-weight: 600;
+      color: var(--gray-text);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 2px;
+    }
+    .contact-detail p, .contact-detail a {
+      font-size: .9rem; color: var(--navy); font-weight: 500; text-decoration: none;
+    }
+    .contact-detail a:hover { color: var(--gold); }
+
+    .contact-certifications {
+      margin-top: 36px;
+      padding: 20px;
+      background: var(--gray-bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--gray-mid);
+    }
+    .contact-certifications h4 {
+      font-size: .75rem; font-weight: 700;
+      color: var(--gray-text);
+      text-transform: uppercase; letter-spacing: .08em;
+      margin-bottom: 12px;
+    }
+    .cert-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .cert-tag {
+      background: var(--navy);
+      color: var(--white);
+      font-size: .7rem;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 6px;
+      letter-spacing: .04em;
+    }
+
+    /* Form */
+    .contact-form {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--gray-mid);
+    }
+    .contact-form h3 { font-size: 1.2rem; font-weight: 700; color: var(--navy); margin-bottom: 28px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block;
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid var(--gray-mid);
+      border-radius: var(--radius);
+      font-family: var(--font);
+      font-size: .9rem;
+      color: var(--dark);
+      background: var(--white);
+      transition: var(--transition);
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .form-group select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 16px;
+      padding-right: 36px;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--navy);
+      box-shadow: 0 0 0 3px rgba(27,58,92,.1);
+    }
+    .form-group input.error,
+    .form-group select.error,
+    .form-group textarea.error { border-color: #e53e3e; }
+    .form-group .error-msg { font-size: .75rem; color: #e53e3e; margin-top: 4px; display: none; }
+    .form-group .error-msg.show { display: block; }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-submit { width: 100%; padding: 14px; font-size: 1rem; margin-top: 8px; justify-content: center; }
+    .form-success { display: none; text-align: center; padding: 32px; }
+    .form-success i { font-size: 2.5rem; color: #38a169; margin-bottom: 12px; display: block; }
+    .form-success h4 { font-size: 1.2rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .form-success p { font-size: .9rem; color: var(--gray-text); }
+
+    /* ── Footer ────────────────────────────────────────────── */
+    footer {
+      background: var(--dark);
+      color: var(--white);
+      padding: 64px 0 0;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .footer-brand p {
+      font-size: .875rem;
+      color: rgba(255,255,255,.55);
+      line-height: 1.65;
+      margin-top: 16px;
+      max-width: 280px;
+    }
+    .footer-socials { display: flex; gap: 10px; margin-top: 20px; }
+    .footer-social {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: .875rem;
+      transition: var(--transition);
+    }
+    .footer-social:hover { background: var(--gold); color: var(--navy-dark); }
+
+    .footer-col h4 {
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      margin-bottom: 16px;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a {
+      color: rgba(255,255,255,.6);
+      text-decoration: none;
+      font-size: .875rem;
+      transition: var(--transition);
+    }
+    .footer-col ul li a:hover { color: var(--white); }
+
+    .footer-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .footer-contact-item i { color: var(--gold); font-size: .85rem; margin-top: 3px; width: 16px; flex-shrink: 0; }
+    .footer-contact-item a,
+    .footer-contact-item span {
+      color: rgba(255,255,255,.65);
+      font-size: .85rem;
+      text-decoration: none;
+      line-height: 1.45;
+    }
+    .footer-contact-item a:hover { color: var(--white); }
+
+    .footer-bottom {
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-bottom p { font-size: .8rem; color: rgba(255,255,255,.4); }
+    .footer-bottom-links { display: flex; gap: 20px; }
+    .footer-bottom-links a {
+      font-size: .78rem;
+      color: rgba(255,255,255,.4);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .footer-bottom-links a:hover { color: rgba(255,255,255,.7); }
+
+    /* ── Back to Top ───────────────────────────────────────── */
+    #back-to-top {
+      position: fixed;
+      bottom: 32px; right: 32px;
+      width: 44px; height: 44px;
+      background: var(--navy);
+      color: var(--white);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .85rem;
+      box-shadow: var(--shadow-md);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: var(--transition);
+      z-index: 900;
+    }
+    #back-to-top.visible { opacity: 1; transform: none; }
+    #back-to-top:hover { background: var(--gold); color: var(--navy-dark); }
+
+    /* ── Responsive ────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .commodities-grid,
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .markets-grid  { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid   { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .section { padding: 72px 0; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .about-grid,
+      .why-grid,
+      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-img { max-width: 480px; }
+      .about-img-badge { bottom: 12px; right: 12px; }
+
+      .hero-stats { grid-template-columns: repeat(2, 1fr); }
+      .commodities-grid { grid-template-columns: 1fr 1fr; }
+      .services-grid    { grid-template-columns: 1fr; }
+      .form-row         { grid-template-columns: 1fr; }
+      .about-values     { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-ctas { flex-direction: column; }
+      .hero-ctas .btn { width: 100%; justify-content: center; }
+      .commodities-grid { grid-template-columns: 1fr; }
+      .markets-grid     { grid-template-columns: 1fr 1fr; }
+      .footer-grid      { grid-template-columns: 1fr; }
+      .contact-form     { padding: 28px 20px; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- ===================== NAVBAR ===================== -->
-  <nav class="navbar" role="navigation" aria-label="Main navigation">
-    <div class="navbar-inner">
-      <a href="index.html" class="navbar-logo" aria-label="Jakarta Portal International Home">
-        <span class="logo-jpi">JPI</span>
-        <span class="logo-full">Jakarta Portal International</span>
+<!-- ═══════════════════════════════════════════════════════════
+     NAVBAR
+════════════════════════════════════════════════════════════ -->
+<nav id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo" aria-label="Jakarta Portal International Home">
+        <div class="nav-logo-mark">JPI</div>
+        <div class="nav-logo-text">
+          <span class="nav-logo-name">Jakarta Portal International</span>
+          <span class="nav-logo-sub">General Trading · Est. Indonesia</span>
+        </div>
       </a>
 
-      <div class="navbar-nav" role="menubar">
-        <a href="index.html" role="menuitem">Home</a>
-        <a href="about.html" role="menuitem">About</a>
-        <a href="energy.html" role="menuitem">Energy</a>
-        <a href="commodity.html" role="menuitem">Commodity</a>
-        <a href="contact.html" class="btn btn-primary navbar-cta" role="menuitem">Contact Us</a>
-      </div>
+      <ul class="nav-links" role="list">
+        <li><a href="#about">About</a></li>
+        <li><a href="#commodities">Commodities</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#markets">Markets</a></li>
+        <li><a href="#why">Why JPI</a></li>
+        <li class="nav-cta"><a href="#contact">Get a Quote</a></li>
+      </ul>
 
-      <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
-  </nav>
-
-  <!-- Mobile Nav -->
-  <div class="mobile-nav" role="menu" aria-label="Mobile navigation">
-    <a href="index.html" role="menuitem">Home</a>
-    <a href="about.html" role="menuitem">About Us</a>
-    <a href="energy.html" role="menuitem">Energy Resources</a>
-    <a href="commodity.html" role="menuitem">Commodity Resources</a>
-    <a href="contact.html" role="menuitem">Contact Us</a>
   </div>
+</nav>
 
-  <!-- ===================== HERO ===================== -->
-  <section class="hero" aria-label="Hero">
-    <div class="hero-bg hero-bg-animated"></div>
-    <div class="hero-shapes" aria-hidden="true">
-      <div class="shape shape-1"></div>
-      <div class="shape shape-2"></div>
-      <div class="shape shape-3"></div>
-    </div>
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Mobile navigation">
+  <a href="#about"       class="mobile-link">About</a>
+  <a href="#commodities" class="mobile-link">Commodities</a>
+  <a href="#services"    class="mobile-link">Services</a>
+  <a href="#markets"     class="mobile-link">Markets</a>
+  <a href="#why"         class="mobile-link">Why JPI</a>
+  <a href="#contact"     class="mobile-link mobile-cta">Get a Quote</a>
+</div>
 
-    <div class="hero-content container">
-      <div class="hero-text">
-        <div class="hero-tag">
-          <span>Jakarta Portal International</span>
-        </div>
-        <h1>Powering<br /><span>Indonesia's Future</span></h1>
-        <p class="hero-subtitle">
-          A leading general trading company driving growth through energy resources and strategic commodity trading across the Indonesian archipelago.
-        </p>
-        <div class="hero-buttons">
-          <a href="energy.html" class="btn btn-primary">
-            <i class="fas fa-bolt"></i> Explore Energy
-          </a>
-          <a href="commodity.html" class="btn btn-outline">
-            <i class="fas fa-layer-group"></i> View Commodities
-          </a>
-        </div>
+<!-- ═══════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════════ -->
+<section id="hero" aria-label="Hero">
+  <div class="hero-bg" role="img" aria-label="Jakarta port aerial view"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="container hero-wrapper">
+    <div class="hero-content">
+      <div class="hero-eyebrow fade-in">
+        <i class="fas fa-anchor"></i>
+        Indonesia's Trusted Trade Partner
       </div>
-    </div>
-  </section>
-
-  <!-- ===================== STATS BAR ===================== -->
-  <section class="stats-bar" aria-label="Company statistics">
-    <div class="container">
-      <div class="stats-grid">
-        <div class="stat-item fade-in">
-          <span class="stat-number" data-target="10" data-suffix="+">10+</span>
-          <span class="stat-label">Years of Experience</span>
-        </div>
-        <div class="stat-item fade-in fade-in-delay-1">
-          <span class="stat-number" data-target="50" data-suffix="+">50+</span>
-          <span class="stat-label">Strategic Partners</span>
-        </div>
-        <div class="stat-item fade-in fade-in-delay-2">
-          <span class="stat-number" data-target="15">15</span>
-          <span class="stat-label">Provinces Covered</span>
-        </div>
-        <div class="stat-item fade-in fade-in-delay-3">
-          <span class="stat-number" data-target="1000" data-suffix="+">1000+</span>
-          <span class="stat-label">Transactions</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== SERVICES ===================== -->
-  <section class="services-section section-padding" aria-labelledby="services-heading">
-    <div class="container">
-      <div class="text-center">
-        <span class="badge">Our Core Business</span>
-        <h2 class="section-title" id="services-heading">What We <span class="text-gold">Trade</span></h2>
-        <div class="divider"></div>
-        <p class="section-subtitle">
-          From natural energy reserves to agricultural and mineral commodities, JPI connects Indonesian resources to global markets with integrity and efficiency.
-        </p>
-      </div>
-
-      <div class="services-grid">
-        <!-- Energy Card -->
-        <div class="service-card fade-in">
-          <div class="service-icon" aria-hidden="true">
-            <i class="fas fa-bolt"></i>
-          </div>
-          <h3>Energy Resources</h3>
-          <p>
-            Supplying coal, natural gas, petroleum products, and geothermal energy to power industry and infrastructure across Indonesia and beyond.
-          </p>
-          <div class="service-tags">
-            <span class="tag">Coal</span>
-            <span class="tag">Natural Gas</span>
-            <span class="tag">Petroleum</span>
-            <span class="tag">Geothermal</span>
-          </div>
-          <a href="energy.html" class="service-link">
-            Learn More <i class="fas fa-arrow-right"></i>
-          </a>
-        </div>
-
-        <!-- Commodity Card -->
-        <div class="service-card fade-in fade-in-delay-1">
-          <div class="service-icon" aria-hidden="true">
-            <i class="fas fa-layer-group"></i>
-          </div>
-          <h3>Commodity Resources</h3>
-          <p>
-            Trading Indonesia's richest agricultural and mineral commodities — palm oil, rubber, timber, nickel, bauxite, and tin — to domestic and international buyers.
-          </p>
-          <div class="service-tags">
-            <span class="tag">Palm Oil</span>
-            <span class="tag">Rubber</span>
-            <span class="tag">Nickel</span>
-            <span class="tag">Timber</span>
-          </div>
-          <a href="commodity.html" class="service-link">
-            Learn More <i class="fas fa-arrow-right"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== WHY CHOOSE US ===================== -->
-  <section class="why-section section-padding" aria-labelledby="why-heading">
-    <div class="container">
-      <div class="text-center">
-        <span class="badge">Our Strengths</span>
-        <h2 class="section-title" id="why-heading">Why Choose <span class="text-gold">JPI</span></h2>
-        <div class="divider"></div>
-        <p class="section-subtitle">
-          Backed by over a decade of expertise, we deliver reliable trading solutions with transparency and a deep understanding of Indonesia's resource landscape.
-        </p>
-      </div>
-
-      <div class="features-grid">
-        <div class="feature-box fade-in">
-          <span class="feature-icon" aria-hidden="true"><i class="fas fa-shield-halved"></i></span>
-          <h3>Trusted &amp; Reliable</h3>
-          <p>Regulatory-compliant operations with transparent documentation and a proven track record across 10+ years in the industry.</p>
-        </div>
-        <div class="feature-box fade-in fade-in-delay-1">
-          <span class="feature-icon" aria-hidden="true"><i class="fas fa-earth-asia"></i></span>
-          <h3>Nationwide Reach</h3>
-          <p>Operating across 15 Indonesian provinces with a robust logistics network connecting extraction points to end markets.</p>
-        </div>
-        <div class="feature-box fade-in fade-in-delay-2">
-          <span class="feature-icon" aria-hidden="true"><i class="fas fa-handshake"></i></span>
-          <h3>Strategic Partnerships</h3>
-          <p>More than 50 active partnerships with producers, distributors, and international trading houses across the region.</p>
-        </div>
-        <div class="feature-box fade-in fade-in-delay-3">
-          <span class="feature-icon" aria-hidden="true"><i class="fas fa-leaf"></i></span>
-          <h3>Sustainable Practices</h3>
-          <p>Committed to responsible and sustainable sourcing that balances economic growth with environmental stewardship.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== CTA ===================== -->
-  <section class="cta-section" aria-label="Call to action">
-    <div class="container">
-      <span class="badge">Ready to Partner?</span>
-      <h2>Start Trading with <span class="text-gold">JPI</span> Today</h2>
-      <p>Connect with our expert trading team to explore opportunities in Indonesia's dynamic energy and commodity markets.</p>
-      <div class="cta-buttons">
-        <a href="contact.html" class="btn btn-primary">
-          <i class="fas fa-envelope"></i> Get in Touch
+      <h1 class="hero-title fade-in fade-in-delay-1">
+        Connecting <span>Indonesia</span><br />to the World
+      </h1>
+      <p class="hero-sub fade-in fade-in-delay-2">
+        Your trusted partner for raw materials and commodities trade across APAC.
+        From Jakarta's ports to markets in China, Japan, South Korea and beyond.
+      </p>
+      <div class="hero-ctas fade-in fade-in-delay-3">
+        <a href="#contact" class="btn btn-primary">
+          <i class="fas fa-file-invoice"></i> Get a Quote
         </a>
-        <a href="about.html" class="btn btn-outline">
-          <i class="fas fa-info-circle"></i> Learn About Us
+        <a href="#commodities" class="btn btn-outline">
+          Our Commodities <i class="fas fa-arrow-right"></i>
         </a>
       </div>
     </div>
-  </section>
 
-  <!-- ===================== FOOTER ===================== -->
-  <footer class="footer" role="contentinfo">
-    <div class="container">
-      <div class="footer-grid">
-        <!-- Brand -->
-        <div class="footer-brand">
-          <div class="footer-logo">
-            <span class="logo-jpi">JPI</span>
-            <span class="logo-full-text">Jakarta Portal International</span>
-          </div>
-          <p>A trusted general trading company specializing in Energy Resources and Commodity Resources across the Indonesian archipelago since 2014.</p>
-          <div class="footer-social">
-            <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" class="social-link" aria-label="Twitter / X"><i class="fab fa-x-twitter"></i></a>
-            <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-          </div>
-        </div>
-
-        <!-- Quick Links -->
-        <div class="footer-col">
-          <h4>Quick Links</h4>
-          <ul>
-            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
-            <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
-            <li><a href="energy.html"><i class="fas fa-chevron-right"></i> Energy Resources</a></li>
-            <li><a href="commodity.html"><i class="fas fa-chevron-right"></i> Commodity Resources</a></li>
-            <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
-          </ul>
-        </div>
-
-        <!-- Services -->
-        <div class="footer-col">
-          <h4>Our Products</h4>
-          <ul>
-            <li><a href="energy.html"><i class="fas fa-chevron-right"></i> Coal</a></li>
-            <li><a href="energy.html"><i class="fas fa-chevron-right"></i> Natural Gas</a></li>
-            <li><a href="energy.html"><i class="fas fa-chevron-right"></i> Petroleum Products</a></li>
-            <li><a href="commodity.html"><i class="fas fa-chevron-right"></i> Palm Oil</a></li>
-            <li><a href="commodity.html"><i class="fas fa-chevron-right"></i> Minerals &amp; Metals</a></li>
-          </ul>
-        </div>
-
-        <!-- Contact -->
-        <div class="footer-col">
-          <h4>Contact Us</h4>
-          <div class="footer-contact-item">
-            <i class="fas fa-location-dot"></i>
-            <span>Jl. Sudirman No. 1, Jakarta Pusat, DKI Jakarta 10220, Indonesia</span>
-          </div>
-          <div class="footer-contact-item">
-            <i class="fas fa-phone"></i>
-            <span>+62 21 5000 1234</span>
-          </div>
-          <div class="footer-contact-item">
-            <i class="fas fa-envelope"></i>
-            <span>info@jpi-indonesia.co.id</span>
-          </div>
-          <div class="footer-contact-item">
-            <i class="fas fa-clock"></i>
-            <span>Mon – Fri, 08:00 – 17:00 WIB</span>
-          </div>
-        </div>
+    <div class="hero-stats" role="list" aria-label="Company highlights">
+      <div class="hero-stat fade-in" role="listitem">
+        <div class="hero-stat-num">15+</div>
+        <div class="hero-stat-label">Years in Business</div>
       </div>
-
-      <div class="footer-bottom">
-        <p>&copy; 2024 Jakarta Portal International. All rights reserved.</p>
-        <div class="footer-bottom-links">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
-          <a href="#">Sitemap</a>
-        </div>
+      <div class="hero-stat fade-in fade-in-delay-1" role="listitem">
+        <div class="hero-stat-num">2,400+</div>
+        <div class="hero-stat-label">Shipments Completed</div>
+      </div>
+      <div class="hero-stat fade-in fade-in-delay-2" role="listitem">
+        <div class="hero-stat-num">8</div>
+        <div class="hero-stat-label">APAC Countries</div>
+      </div>
+      <div class="hero-stat fade-in fade-in-delay-3" role="listitem">
+        <div class="hero-stat-num">40+</div>
+        <div class="hero-stat-label">Commodities Traded</div>
       </div>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <script src="js/main.js"></script>
+<!-- ═══════════════════════════════════════════════════════════
+     ABOUT
+════════════════════════════════════════════════════════════ -->
+<section id="about" class="section">
+  <div class="container">
+    <div class="about-grid">
+
+      <div class="about-img fade-in">
+        <img
+          src="https://placehold.co/600x480/1B3A5C/D4A017?text=Jakarta+Port+Operations"
+          alt="Jakarta Port Operations"
+          loading="lazy"
+        />
+        <div class="about-img-badge">
+          <strong>15+</strong>
+          <span>Years of<br/>Excellence</span>
+        </div>
+      </div>
+
+      <div>
+        <p class="section-label fade-in">About JPI</p>
+        <h2 class="section-title fade-in fade-in-delay-1">Bridging Indonesian<br />Producers to APAC Buyers</h2>
+        <p class="section-sub fade-in fade-in-delay-2" style="max-width:100%;">
+          Jakarta Portal International is a Jakarta-based general trading company
+          specializing in the export and import of raw materials and commodities.
+          Founded on deep knowledge of Indonesian regulatory frameworks and APAC
+          trade routes, we serve as the operational bridge between Indonesia's
+          world-class commodity producers and high-demand buyers across Asia.
+        </p>
+        <p style="font-size:.875rem;color:var(--gray-text);margin-top:14px;line-height:1.65;" class="fade-in fade-in-delay-3">
+          Our team navigates Indonesia's complex export landscape — from Bea Cukai
+          compliance and Ministry of Trade licensing to RCEP duty optimization — so
+          your shipments move efficiently and fully compliant.
+        </p>
+
+        <div class="about-values fade-in fade-in-delay-4">
+          <div class="about-value">
+            <div class="about-value-icon"><i class="fas fa-shield-halved"></i></div>
+            <div>
+              <h4>Reliability</h4>
+              <p>Consistent on-time delivery and transparent communication at every stage.</p>
+            </div>
+          </div>
+          <div class="about-value">
+            <div class="about-value-icon"><i class="fas fa-scale-balanced"></i></div>
+            <div>
+              <h4>Compliance</h4>
+              <p>Full adherence to Indonesian export law and APAC import regulations.</p>
+            </div>
+          </div>
+          <div class="about-value">
+            <div class="about-value-icon"><i class="fas fa-bolt"></i></div>
+            <div>
+              <h4>Speed</h4>
+              <p>Streamlined documentation and pre-cleared customs channels.</p>
+            </div>
+          </div>
+          <div class="about-value">
+            <div class="about-value-icon"><i class="fas fa-handshake"></i></div>
+            <div>
+              <h4>Partnership</h4>
+              <p>Long-term relationships built on trust, transparency, and shared success.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     COMMODITIES
+════════════════════════════════════════════════════════════ -->
+<section id="commodities" class="section section--gray">
+  <div class="container">
+    <div class="section-header section-header--center">
+      <p class="section-label fade-in">What We Trade</p>
+      <h2 class="section-title fade-in fade-in-delay-1">Indonesia's Core Commodities</h2>
+      <p class="section-sub fade-in fade-in-delay-2">
+        From agricultural staples to industrial minerals — we handle the full
+        spectrum of Indonesia's most valuable export commodities with precision
+        and compliance.
+      </p>
+    </div>
+
+    <div class="commodities-grid">
+
+      <div class="commodity-card fade-in">
+        <div class="commodity-icon"><i class="fas fa-droplet"></i></div>
+        <h3>Palm Oil &amp; Derivatives</h3>
+        <p>Crude Palm Oil (CPO), Refined Bleached Deodorized (RBD) Palm Oil, Palm Kernel
+           Oil, and oleochemical derivatives. Indonesia leads global supply — we connect
+           you to the source.</p>
+        <span class="commodity-tag">HS 1511 · 1513</span>
+      </div>
+
+      <div class="commodity-card fade-in fade-in-delay-1">
+        <div class="commodity-icon"><i class="fas fa-mountain"></i></div>
+        <h3>Coal &amp; Minerals</h3>
+        <p>Thermal and coking coal from Kalimantan, nickel ore from Sulawesi, tin
+           concentrate from Bangka Belitung. Full documentation per Indonesian mining
+           export regulations.</p>
+        <span class="commodity-tag">HS 2701 · 2604 · 2609</span>
+      </div>
+
+      <div class="commodity-card fade-in fade-in-delay-2">
+        <div class="commodity-icon"><i class="fas fa-tree"></i></div>
+        <h3>Natural Rubber</h3>
+        <p>Technically Specified Rubber (TSR), Latex Concentrate, and Ribbed Smoked
+           Sheets (RSS) from Sumatra and Kalimantan. Certified for automotive, medical,
+           and industrial use.</p>
+        <span class="commodity-tag">HS 4001 · 4003</span>
+      </div>
+
+      <div class="commodity-card fade-in fade-in-delay-3">
+        <div class="commodity-icon"><i class="fas fa-mug-hot"></i></div>
+        <h3>Cocoa &amp; Coffee</h3>
+        <p>Cocoa beans, cocoa butter, and cocoa powder from Sulawesi and Flores.
+           Arabica and Robusta coffee. Single-origin specialty grades available
+           with full traceability.</p>
+        <span class="commodity-tag">HS 1801 · 0901</span>
+      </div>
+
+      <div class="commodity-card fade-in fade-in-delay-4">
+        <div class="commodity-icon"><i class="fas fa-fish"></i></div>
+        <h3>Seafood &amp; Marine Products</h3>
+        <p>Fresh, frozen, and processed shrimp, tuna, skipjack, and crab.
+           HACCP-certified processing facilities. Cold chain logistics coordinated
+           port-to-port.</p>
+        <span class="commodity-tag">HS 0302 · 0306 · 1604</span>
+      </div>
+
+      <div class="commodity-card fade-in fade-in-delay-5">
+        <div class="commodity-icon"><i class="fas fa-industry"></i></div>
+        <h3>Industrial Raw Materials</h3>
+        <p>Silica sand, limestone, wood pulp, bauxite, and steel scrap. We source
+           from vetted Indonesian producers and handle all pre-shipment inspection
+           requirements.</p>
+        <span class="commodity-tag">HS 2505 · 4703 · 2606</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SERVICES
+════════════════════════════════════════════════════════════ -->
+<section id="services" class="section">
+  <div class="container">
+    <div class="section-header section-header--center">
+      <p class="section-label fade-in">What We Do</p>
+      <h2 class="section-title fade-in fade-in-delay-1">End-to-End Trade Services</h2>
+      <p class="section-sub fade-in fade-in-delay-2">
+        From first inquiry to final delivery — we manage every step of the trade
+        process so you can focus on your core business.
+      </p>
+    </div>
+
+    <div class="services-grid">
+
+      <div class="service-card fade-in">
+        <div class="service-num">01</div>
+        <h3>Export Documentation</h3>
+        <p>Complete preparation and verification of all export documents to ensure
+           smooth customs clearance at origin and destination.</p>
+        <ul>
+          <li>Commercial Invoice &amp; Packing List</li>
+          <li>Certificate of Origin (COO/SKA)</li>
+          <li>Bill of Lading (B/L) coordination</li>
+          <li>Phytosanitary &amp; health certificates</li>
+        </ul>
+      </div>
+
+      <div class="service-card fade-in fade-in-delay-1">
+        <div class="service-num">02</div>
+        <h3>Import Compliance &amp; Customs</h3>
+        <p>Destination-side compliance management across all eight APAC markets,
+           with in-country agent networks for seamless customs clearance.</p>
+        <ul>
+          <li>Customs tariff classification</li>
+          <li>Import license facilitation</li>
+          <li>Quarantine &amp; inspection support</li>
+          <li>Duty drawback advisory</li>
+        </ul>
+      </div>
+
+      <div class="service-card fade-in fade-in-delay-2">
+        <div class="service-num">03</div>
+        <h3>HS Code &amp; Duty Optimization</h3>
+        <p>Strategic HS code classification and FTA utilization to legally minimize
+           duty exposure under RCEP, ASEAN FTAs, and bilateral agreements.</p>
+        <ul>
+          <li>RCEP preference certificate</li>
+          <li>ASEAN FTA Form D &amp; E</li>
+          <li>Binding ruling consultation</li>
+          <li>Duty rate comparison matrix</li>
+        </ul>
+      </div>
+
+      <div class="service-card fade-in fade-in-delay-3">
+        <div class="service-num">04</div>
+        <h3>Trade Finance Support</h3>
+        <p>Structuring and coordination of trade finance instruments to protect
+           both buyers and sellers throughout the transaction lifecycle.</p>
+        <ul>
+          <li>Letter of Credit (L/C) management</li>
+          <li>Telegraphic Transfer (T/T) coordination</li>
+          <li>Documents against Payment (D/P)</li>
+          <li>Bank guarantee facilitation</li>
+        </ul>
+      </div>
+
+      <div class="service-card fade-in fade-in-delay-4">
+        <div class="service-num">05</div>
+        <h3>Supplier &amp; Buyer Sourcing</h3>
+        <p>Leveraging our vetted network of Indonesian commodity producers and
+           APAC importers to match you with the right counterparty at the right terms.</p>
+        <ul>
+          <li>Indonesian producer due diligence</li>
+          <li>APAC buyer qualification</li>
+          <li>Contract negotiation support</li>
+          <li>Long-term supply agreement structuring</li>
+        </ul>
+      </div>
+
+      <div class="service-card fade-in fade-in-delay-5">
+        <div class="service-num">06</div>
+        <h3>APAC Market Entry Consulting</h3>
+        <p>Strategic advisory for companies entering the Indonesian export market
+           or sourcing commodities from Indonesia for the first time.</p>
+        <ul>
+          <li>Market feasibility &amp; pricing analysis</li>
+          <li>Regulatory roadmap per country</li>
+          <li>Logistics &amp; port route optimization</li>
+          <li>Local partner identification</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     APAC MARKETS
+════════════════════════════════════════════════════════════ -->
+<section id="markets" class="section">
+  <div class="container">
+    <div class="section-header section-header--center">
+      <p class="section-label fade-in">Our Reach</p>
+      <h2 class="section-title fade-in fade-in-delay-1">APAC Trade Markets</h2>
+      <p class="section-sub fade-in fade-in-delay-2">
+        We operate across eight key APAC economies — leveraging trade agreements,
+        duty preferences, and local expertise in every market.
+      </p>
+    </div>
+
+    <div class="markets-grid">
+
+      <div class="market-card fade-in">
+        <span class="market-flag" role="img" aria-label="China flag">🇨🇳</span>
+        <div class="market-name">China</div>
+        <div class="market-fta">RCEP</div>
+        <p class="market-desc">Indonesia's largest commodity buyer. Key imports: palm oil, coal, nickel ore, seafood.</p>
+      </div>
+
+      <div class="market-card fade-in fade-in-delay-1">
+        <span class="market-flag" role="img" aria-label="Japan flag">🇯🇵</span>
+        <div class="market-name">Japan</div>
+        <div class="market-fta">RCEP · IJEPA</div>
+        <p class="market-desc">Premium market for certified natural rubber, specialty coffee, and processed seafood.</p>
+      </div>
+
+      <div class="market-card fade-in fade-in-delay-2">
+        <span class="market-flag" role="img" aria-label="South Korea flag">🇰🇷</span>
+        <div class="market-name">South Korea</div>
+        <div class="market-fta">RCEP · IKCEPA</div>
+        <p class="market-desc">Strong demand for coal, rubber, and industrial raw materials. Growing specialty food imports.</p>
+      </div>
+
+      <div class="market-card fade-in fade-in-delay-3">
+        <span class="market-flag" role="img" aria-label="Singapore flag">🇸🇬</span>
+        <div class="market-name">Singapore</div>
+        <div class="market-fta">ASEAN FTA</div>
+        <p class="market-desc">Regional trade hub and key transshipment point for commodities moving into ASEAN.</p>
+      </div>
+
+      <div class="market-card fade-in fade-in-delay-1">
+        <span class="market-flag" role="img" aria-label="Malaysia flag">🇲🇾</span>
+        <div class="market-name">Malaysia</div>
+        <div class="market-fta">ASEAN FTA · RCEP</div>
+        <p class="market-desc">Cross-border commodity flows for raw materials and palm oil derivatives. Zero-duty access.</p>
+      </div>
+
+      <div class="market-card fade-in fade-in-delay-2">
+        <span class="market-flag" role="img" aria-label="Thailand flag">🇹🇭</span>
+        <div class="market-name">Thailand</div>
+        <div class="market-fta">ASEAN FTA · RCEP</div>
+        <p class="market-desc">Industrial raw materials for automotive and electronics manufacturing supply chains.</p>
+      </div>
+
+      <div class="market-card fade-in fade-in-delay-3">
+        <span class="market-flag" role="img" aria-label="Vietnam flag">🇻🇳</span>
+        <div class="market-name">Vietnam</div>
+        <div class="market-fta">ASEAN FTA · RCEP</div>
+        <p class="market-desc">Fast-growing manufacturing hub. Rising demand for coal, rubber, and industrial inputs.</p>
+      </div>
+
+      <div class="market-card fade-in fade-in-delay-4">
+        <span class="market-flag" role="img" aria-label="Philippines flag">🇵🇭</span>
+        <div class="market-name">Philippines</div>
+        <div class="market-fta">ASEAN FTA · RCEP</div>
+        <p class="market-desc">Strong demand for cocoa, seafood, and agricultural commodities. Emerging import market.</p>
+      </div>
+
+    </div>
+
+    <div class="markets-note fade-in">
+      <i class="fas fa-circle-info"></i>
+      <p>JPI leverages <strong>RCEP</strong> (Regional Comprehensive Economic Partnership) and
+         <strong>ASEAN FTA</strong> preferential tariff rates to maximize cost efficiency for every
+         shipment. Our trade finance team handles Form D, Form E, and certificate of origin issuance
+         for all covered routes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     WHY JPI
+════════════════════════════════════════════════════════════ -->
+<section id="why" class="section section--gray">
+  <div class="container">
+    <div class="why-grid">
+
+      <div>
+        <p class="section-label fade-in">Why Choose Us</p>
+        <h2 class="section-title fade-in fade-in-delay-1">The JPI Advantage</h2>
+        <p class="section-sub fade-in fade-in-delay-2" style="max-width:100%;">
+          Navigating Indonesia's export landscape requires more than logistics.
+          It demands regulatory fluency, institutional relationships, and the
+          operational discipline to execute at scale.
+        </p>
+
+        <ul class="why-list" style="margin-top:32px;" role="list">
+
+          <li class="why-item fade-in fade-in-delay-1">
+            <div class="why-icon"><i class="fas fa-landmark"></i></div>
+            <div>
+              <h4>Deep Regulatory Expertise</h4>
+              <p>In-depth knowledge of Bea Cukai (customs), Ministry of Trade licensing,
+                 BPOM food safety, and Ministry of Energy &amp; Mineral Resources requirements.</p>
+            </div>
+          </li>
+
+          <li class="why-item fade-in fade-in-delay-2">
+            <div class="why-icon"><i class="fas fa-percent"></i></div>
+            <div>
+              <h4>RCEP &amp; FTA Duty Optimization</h4>
+              <p>Certified expertise in applying RCEP, ASEAN Free Trade Agreement, and bilateral
+                 FTA preferences — reducing your total landed cost across all eight markets.</p>
+            </div>
+          </li>
+
+          <li class="why-item fade-in fade-in-delay-3">
+            <div class="why-icon"><i class="fas fa-file-contract"></i></div>
+            <div>
+              <h4>End-to-End Documentation</h4>
+              <p>From export declaration (PEB) to destination customs entry — we prepare,
+                 verify, and submit every document, eliminating delays and compliance risk.</p>
+            </div>
+          </li>
+
+          <li class="why-item fade-in fade-in-delay-4">
+            <div class="why-icon"><i class="fas fa-language"></i></div>
+            <div>
+              <h4>Bilingual Operations Team</h4>
+              <p>Indonesian and English-speaking trade specialists ensuring zero miscommunication
+                 between Jakarta producers and your procurement or logistics teams abroad.</p>
+            </div>
+          </li>
+
+          <li class="why-item fade-in fade-in-delay-5">
+            <div class="why-icon"><i class="fas fa-network-wired"></i></div>
+            <div>
+              <h4>Jakarta-Based, APAC-Connected</h4>
+              <p>Headquartered in Jakarta with in-country agent relationships across all eight
+                 APAC markets — ensuring real-time responsiveness at both ends of every route.</p>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+
+      <div class="why-visual fade-in fade-in-delay-2">
+        <h3><i class="fas fa-shield-halved" style="margin-right:8px;"></i>Compliance Framework</h3>
+        <div class="compliance-grid">
+          <div class="compliance-item">
+            <i class="fas fa-check-circle"></i>
+            <p><strong>Bea Cukai</strong> — Indonesian Customs Authority compliance for all export declarations (PEB/PIB)</p>
+          </div>
+          <div class="compliance-item">
+            <i class="fas fa-check-circle"></i>
+            <p><strong>Ministry of Trade (Kemendag)</strong> — Export licensing (PE/ET) and commodity quota management</p>
+          </div>
+          <div class="compliance-item">
+            <i class="fas fa-check-circle"></i>
+            <p><strong>BPOM</strong> — Food safety certification for agricultural and marine exports</p>
+          </div>
+          <div class="compliance-item">
+            <i class="fas fa-check-circle"></i>
+            <p><strong>ESDM</strong> — Energy &amp; mineral resources export compliance (nickel, coal, bauxite)</p>
+          </div>
+          <div class="compliance-item">
+            <i class="fas fa-check-circle"></i>
+            <p><strong>RCEP &amp; ASEAN FTA</strong> — Form D/E/RCEP certificate of origin issuance</p>
+          </div>
+          <div class="compliance-item">
+            <i class="fas fa-check-circle"></i>
+            <p><strong>Pre-Shipment Inspection</strong> — LSI/PSI coordination per commodity type</p>
+          </div>
+          <div class="compliance-item">
+            <i class="fas fa-check-circle"></i>
+            <p><strong>ISPM 15</strong> — Phytosanitary wood packaging compliance for agricultural commodities</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CONTACT / GET A QUOTE
+════════════════════════════════════════════════════════════ -->
+<section id="contact" class="section">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label fade-in">Get in Touch</p>
+      <h2 class="section-title fade-in fade-in-delay-1">Request a Trade Inquiry</h2>
+      <p class="section-sub fade-in fade-in-delay-2">
+        Ready to discuss a shipment, source a commodity, or explore how JPI can
+        support your APAC trade strategy? Our team responds within one business day.
+      </p>
+    </div>
+
+    <div class="contact-grid">
+
+      <!-- Contact Info -->
+      <div>
+        <h3 class="fade-in">Contact Information</h3>
+
+        <div class="contact-detail fade-in fade-in-delay-1">
+          <div class="contact-detail-icon"><i class="fas fa-envelope"></i></div>
+          <div>
+            <h4>Email</h4>
+            <a href="mailto:info@jakartaportal.id">info@jakartaportal.id</a>
+          </div>
+        </div>
+
+        <div class="contact-detail fade-in fade-in-delay-2">
+          <div class="contact-detail-icon"><i class="fas fa-phone"></i></div>
+          <div>
+            <h4>Phone</h4>
+            <a href="tel:+6221XXXXXXX">+62-21-XXXXXXX</a>
+          </div>
+        </div>
+
+        <div class="contact-detail fade-in fade-in-delay-3">
+          <div class="contact-detail-icon"><i class="fab fa-whatsapp"></i></div>
+          <div>
+            <h4>WhatsApp Business</h4>
+            <a href="https://wa.me/62XXXXXXXXXX">+62-XXX-XXXX-XXXX</a>
+          </div>
+        </div>
+
+        <div class="contact-detail fade-in fade-in-delay-4">
+          <div class="contact-detail-icon"><i class="fas fa-location-dot"></i></div>
+          <div>
+            <h4>Office Address</h4>
+            <p>Jl. [Street Name] No. XX, [District]<br />
+               Jakarta Selatan, DKI Jakarta 12XXX<br />
+               Indonesia</p>
+          </div>
+        </div>
+
+        <div class="contact-detail fade-in fade-in-delay-5">
+          <div class="contact-detail-icon"><i class="fas fa-clock"></i></div>
+          <div>
+            <h4>Business Hours</h4>
+            <p>Monday – Friday: 09:00 – 17:00 WIB<br />
+               Saturday: 09:00 – 13:00 WIB</p>
+          </div>
+        </div>
+
+        <div class="contact-certifications fade-in">
+          <h4>Regulatory Affiliations</h4>
+          <div class="cert-tags">
+            <span class="cert-tag">Bea Cukai Licensed</span>
+            <span class="cert-tag">Kemendag Registered</span>
+            <span class="cert-tag">RCEP Certified</span>
+            <span class="cert-tag">ASEAN FTA</span>
+            <span class="cert-tag">BPOM Compliant</span>
+            <span class="cert-tag">NPIK Holder</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="contact-form fade-in fade-in-delay-1">
+        <h3>Send a Trade Inquiry</h3>
+        <form id="inquiry-form" novalidate>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="full-name">Full Name *</label>
+              <input type="text" id="full-name" name="fullName"
+                     placeholder="Your full name" autocomplete="name" />
+              <span class="error-msg" id="err-name">Please enter your full name.</span>
+            </div>
+            <div class="form-group">
+              <label for="company">Company Name *</label>
+              <input type="text" id="company" name="company"
+                     placeholder="Your company" autocomplete="organization" />
+              <span class="error-msg" id="err-company">Please enter your company name.</span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="country">Country *</label>
+              <select id="country" name="country">
+                <option value="">Select country…</option>
+                <optgroup label="APAC Markets">
+                  <option>China</option>
+                  <option>Japan</option>
+                  <option>South Korea</option>
+                  <option>Singapore</option>
+                  <option>Malaysia</option>
+                  <option>Thailand</option>
+                  <option>Vietnam</option>
+                  <option>Philippines</option>
+                  <option>Indonesia</option>
+                </optgroup>
+                <optgroup label="Other Regions">
+                  <option>Australia</option>
+                  <option>India</option>
+                  <option>United States</option>
+                  <option>United Kingdom</option>
+                  <option>Germany</option>
+                  <option>Netherlands</option>
+                  <option>Other</option>
+                </optgroup>
+              </select>
+              <span class="error-msg" id="err-country">Please select your country.</span>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email"
+                     placeholder="you@company.com" autocomplete="email" />
+              <span class="error-msg" id="err-email">Please enter a valid email address.</span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="commodity">Commodity of Interest *</label>
+              <select id="commodity" name="commodity">
+                <option value="">Select commodity…</option>
+                <option>Palm Oil &amp; Derivatives</option>
+                <option>Coal &amp; Minerals (Nickel, Tin)</option>
+                <option>Natural Rubber</option>
+                <option>Cocoa &amp; Coffee</option>
+                <option>Seafood &amp; Marine Products</option>
+                <option>Industrial Raw Materials</option>
+                <option>Multiple Commodities</option>
+                <option>Other / Not Listed</option>
+              </select>
+              <span class="error-msg" id="err-commodity">Please select a commodity.</span>
+            </div>
+            <div class="form-group">
+              <label for="volume">Est. Volume / Month</label>
+              <input type="text" id="volume" name="volume"
+                     placeholder="e.g. 500 MT / month" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message"
+                      placeholder="Tell us about your requirements, timeline, or any specific questions…"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-navy form-submit">
+            <i class="fas fa-paper-plane"></i> Send Inquiry
+          </button>
+        </form>
+
+        <div class="form-success" id="form-success">
+          <i class="fas fa-circle-check"></i>
+          <h4>Inquiry Received</h4>
+          <p>Thank you for reaching out. A member of our trade team will contact
+             you within one business day (Jakarta time, WIB).</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════ -->
+<footer role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <a href="#hero" class="nav-logo" aria-label="Jakarta Portal International">
+          <div class="nav-logo-mark">JPI</div>
+          <div class="nav-logo-text">
+            <span class="nav-logo-name">Jakarta Portal International</span>
+            <span class="nav-logo-sub">General Trading · Indonesia</span>
+          </div>
+        </a>
+        <p>Bridging Indonesia's world-class commodity producers to high-demand buyers
+           across the APAC region. Compliance-first. Results-driven.</p>
+        <div class="footer-socials">
+          <a href="#" class="footer-social" aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="#" class="footer-social" aria-label="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul role="list">
+          <li><a href="#about">About JPI</a></li>
+          <li><a href="#commodities">Commodities</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#markets">APAC Markets</a></li>
+          <li><a href="#why">Why Choose Us</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Commodities</h4>
+        <ul role="list">
+          <li><a href="#commodities">Palm Oil</a></li>
+          <li><a href="#commodities">Coal &amp; Minerals</a></li>
+          <li><a href="#commodities">Natural Rubber</a></li>
+          <li><a href="#commodities">Cocoa &amp; Coffee</a></li>
+          <li><a href="#commodities">Seafood</a></li>
+          <li><a href="#commodities">Industrial Materials</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="footer-contact-item">
+          <i class="fas fa-envelope"></i>
+          <a href="mailto:info@jakartaportal.id">info@jakartaportal.id</a>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fas fa-phone"></i>
+          <a href="tel:+6221XXXXXXX">+62-21-XXXXXXX</a>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fas fa-location-dot"></i>
+          <span>Jl. [Street Name] No. XX<br />Jakarta Selatan, DKI Jakarta<br />Indonesia 12XXX</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fas fa-globe"></i>
+          <a href="https://www.jakartaportal.id">www.jakartaportal.id</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 Jakarta Portal International. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to Top -->
+<button id="back-to-top" aria-label="Back to top">
+  <i class="fas fa-chevron-up"></i>
+</button>
+
+<!-- ═══════════════════════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════════════════════ -->
+<script>
+  /* ── Navbar scroll state ───────────────────────────────── */
+  const navbar    = document.getElementById('navbar');
+  const backToTop = document.getElementById('back-to-top');
+
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY > 60;
+    navbar.classList.toggle('scrolled', scrolled);
+    backToTop.classList.toggle('visible', scrolled);
+  }, { passive: true });
+
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* ── Hamburger / mobile menu ───────────────────────────── */
+  const hamburger  = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  function toggleMenu(open) {
+    hamburger.classList.toggle('open', open);
+    mobileMenu.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  hamburger.addEventListener('click', () => {
+    toggleMenu(!mobileMenu.classList.contains('open'));
+  });
+
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => toggleMenu(false));
+  });
+
+  /* ── Scroll-triggered fade-in ──────────────────────────── */
+  const fadeEls = document.querySelectorAll('.fade-in');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  fadeEls.forEach(el => observer.observe(el));
+
+  /* Trigger hero elements immediately on load */
+  setTimeout(() => {
+    document.querySelectorAll('#hero .fade-in').forEach(el => el.classList.add('visible'));
+  }, 100);
+
+  /* ── Contact form validation ───────────────────────────── */
+  const form       = document.getElementById('inquiry-form');
+  const successMsg = document.getElementById('form-success');
+
+  function setFieldError(inputId, errId, hasError) {
+    document.getElementById(inputId).classList.toggle('error', hasError);
+    document.getElementById(errId).classList.toggle('show', hasError);
+    return hasError;
+  }
+
+  function isValidEmail(v) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let invalid = false;
+
+    const name      = document.getElementById('full-name').value.trim();
+    const company   = document.getElementById('company').value.trim();
+    const country   = document.getElementById('country').value;
+    const email     = document.getElementById('email').value.trim();
+    const commodity = document.getElementById('commodity').value;
+
+    if (setFieldError('full-name', 'err-name',      !name))              invalid = true;
+    if (setFieldError('company',   'err-company',   !company))           invalid = true;
+    if (setFieldError('country',   'err-country',   !country))           invalid = true;
+    if (setFieldError('email',     'err-email',     !isValidEmail(email)))invalid = true;
+    if (setFieldError('commodity', 'err-commodity', !commodity))          invalid = true;
+
+    if (!invalid) {
+      form.style.display = 'none';
+      successMsg.style.display = 'block';
+    }
+  });
+
+  ['full-name', 'company', 'country', 'email', 'commodity'].forEach(id => {
+    const el = document.getElementById(id);
+    el.addEventListener('input',  () => el.classList.remove('error'));
+    el.addEventListener('change', () => el.classList.remove('error'));
+  });
+
+  /* ── Smooth scroll offset for fixed navbar ─────────────── */
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        const top = target.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+
 </body>
 </html>
